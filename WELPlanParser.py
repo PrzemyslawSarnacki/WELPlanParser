@@ -29,7 +29,7 @@ def save_to_csv():
 dfs = pd.read_html("https://plany.wel.wat.edu.pl/lato/WEL19ET1S4.htm", flavor='lxml')
 df = dfs[0]
 df = df.iloc[1:]
-df[1] = df[1].replace({'1-2':'8:00 AM', '3-4':'9:50 AM', '5-6':'11:40 AM', '7-8':'13:30 AM', '9-10':'15:45 AM', '11-12':'17:35 AM', '13-14':'19:25 AM'})
+df[1] = df[1].replace({'1-2':'8:00 AM', '3-4':'9:50 AM', '5-6':'11:40 AM', '7-8':'1:30 PM', '9-10':'3:45 PM', '11-12':'5:35 PM', '13-14':'7:25 PM'})
 df = df.replace({'.III':'/03/2020', '.IV':'/04/2020','.VI':'/06/2020','.V':'/05/2020','.VII':'/07/2020',}, regex=True)
 shortcuts_dict = map_shortcuts()
 df = df.replace(shortcuts_dict, regex=True)
