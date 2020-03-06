@@ -14,17 +14,20 @@ def map_shortcuts():
 
 def save_to_csv():
     filewriter = csv.writer(open("plan.csv", "w", newline=''), delimiter=',')
-    filewriter.writerow(['Subject', 'Start Date', 'Start Time'])
+    filewriter.writerow(['Subject', 'Start Date', 'Start Time', 'End Time'])
     for column in range(3,25):
         date = []
         for x in range(1, 50, 8):
             date.append(df[column][x])
         for i in range(0, 7):
             hours = ((df[1])[(i*8)+1:(i+1)*8]).values.tolist()
+            endHours = ((df[1])[(i*8)+1:(i+1)*8])
+            endHours = endHours.replace({'8:00 AM': '9:35 AM', '9:50 AM': '11:25 AM', '11:40 AM':'1:15 PM', '1:30 PM':'3:05 PM', '3:45 PM' :'5:20 PM', '5:35 PM':'7:25 PM', '7:25 PM': '9:00 PM'})
+            endHours = endHours.values.tolist()
             classes = (df[column])[(i*8)+1:(i+1)*8].values.tolist()
-            for hour, classs in list(zip(hours, classes)):
+            for hour, classs, endHour in list(zip(hours, classes, endHours)):
                 if classs != "&nbsp" and classs != "I":
-                    filewriter.writerow([classs, date[i], hour])
+                    filewriter.writerow([classs, date[i], hour, endHour])
 
 dfs = pd.read_html("https://plany.wel.wat.edu.pl/lato/WEL19ET1S4.htm", flavor='lxml')
 df = dfs[0]
